@@ -6,9 +6,9 @@ output "aci_fqdn" {
 }
 
 output "kv_secret_redis_hostname_id" {
-  value = azurerm_key_vault_secret.redis_hostname.id 
+  value = azurerm_key_vault_secret.redis_hostname.id
 }
 
 output "kv_secret_redis_password_id" {
-  value = azurerm_key_vault_secret.redis_password.id 
+  value = azurerm_key_vault_secret.redis_password.id
 }

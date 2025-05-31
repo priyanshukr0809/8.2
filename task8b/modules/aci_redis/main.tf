@@ -39,7 +39,7 @@ resource "azurerm_container_group" "cg" {
 
 resource "azurerm_key_vault_secret" "redis_hostname" {
   name         = var.redis_hostname_secret_name
-  value        = "${azurerm_container_group.cg.ip_address}"
+  value        = azurerm_container_group.cg.ip_address
   key_vault_id = var.key_vault_id
 }
 

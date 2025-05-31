@@ -30,15 +30,6 @@ variable "container_memory" {
   type = string
 }
 
-variable "container_environment_variables" {
-  type = map(string)
-}
-
-variable "container_secure_environment_variables" {
-  type      = map(string)
-  sensitive = true
-}
-
 variable "key_vault_id" {
   type = string
 }

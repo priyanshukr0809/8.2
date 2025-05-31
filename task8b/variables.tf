@@ -32,7 +32,7 @@ variable "context_access_token" {
   type        = string
   description = "sku"
 }
-#aci
+#aci-redis
 variable "aci_container_environment_variables" {
   type        = map(string)
   description = "sku"
@@ -42,7 +42,10 @@ variable "aci_container_name" {
   description = "sku"
   type        = string
 }
-
+variable "aci_container_image" {
+  description = "sku"
+  type        = string
+}
 variable "aci_container_cpu" {
   description = "sku"
   type        = string
@@ -131,31 +134,31 @@ variable "archive_output_path" {
 
 #aca
 variable "container_app_env_name" {
-    type = string
+  type = string
 }
 
 variable "container_app_name" {
-    type = string
+  type = string
 }
 variable "container_image" {
-    type = string
+  type = string
 }
 variable "container_cpu" {
-    type = string
+  type = string
 }
 
 variable "container_memory" {
-    type = string
+  type = string
 }
 
 variable "container_name" {
-    type = string
+  type = string
 }
 
 variable "container_app_revision_mode" {
-    type = string
+  type = string
 }
 
 variable "aca_ua_name" {
-  type = string 
+  type = string
 }

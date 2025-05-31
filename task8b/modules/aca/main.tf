@@ -1,84 +1,84 @@
 resource "azurerm_user_assigned_identity" "ua1" {
-  name = var.ua_name
+  name                = var.ua_name
   resource_group_name = var.rg_name
-  location = var.location
+  location            = var.location
 }
 
 resource "azurerm_role_assignemnt" "ra" {
   role_definition_name = "AcrPull"
-  scope = var.acr_id
-  principal_id = azurerm_user_assigned_identity.ua1.principal_id
+  scope                = var.acr_id
+  principal_id         = azurerm_user_assigned_identity.ua1.principal_id
 }
 
 resource "azurerm_key_vault_access_policy" "kvap" {
-  object_id = azurerm_user_assigned_identity.ua1.principal_id
+  object_id    = azurerm_user_assigned_identity.ua1.principal_id
   key_vault_id = var.kv_id
-  tenant_id = var.tenant_id
+  tenant_id    = var.tenant_id
 
-  secret_permissions = ["Get","List"]
+  secret_permissions = ["Get", "List"]
 
-  depends_on  = [azurerm_role_assignemnt.ra]
+  depends_on = [azurerm_role_assignemnt.ra]
 }
 
 resource "azurerm_container_app_environment" "app_env" {
-  name = var.container_app_env_name
+  name                = var.container_app_env_name
   resource_group_name = var.rg_name
-  location = var.location 
+  location            = var.location
 
   depends_on = [azurerm_key_vault_access_policy.kvap]
 }
 
 resource "azurerm_container_app" "app" {
-  name = var.container_app_name 
-  resource_group_name = var.rg_name
-  revision_mode = var.container_app_revision_mode
+  name                         = var.container_app_name
+  resource_group_name          = var.rg_name
+  revision_mode                = var.container_app_revision_mode
   container_app_environment_id = azurerm_container_app_environment.app_env.id
 
   registry {
-    server = var.acr_server
+    server   = var.acr_server
     identity = azurerm_user_assigned_identity.ua1.id
   }
-  
+
   identity {
-    type = "UserAssigned"
+    type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.ua1.id]
   }
 
   secret {
-    name = "redis-url"
-    identity = azurerm_user_assigned_identity.ua1.id
+    name                = "redis-url"
+    identity            = azurerm_user_assigned_identity.ua1.id
     key_vault_secret_id = var.kv_secret_redis_hostname_id
   }
-  
+
   secret {
-    name = "redis-key"
-    identity = azurerm_user_assigned_identity.ua1.id
+    name                = "redis-key"
+    identity            = azurerm_user_assigned_identity.ua1.id
     key_vault_secret_id = var.kv_secret_redis_password_id
   }
-  
-  template{
+
+  template {
     container {
-      name = var.container_name 
-      cpu = var.container_cpu 
+      name   = var.container_name
+      cpu    = var.container_cpu
       memory = var.container_memory
-      image = var.container_image
+      image  = var.container_image
 
       env {
-        name = "CREATOR"
+        name  = "CREATOR"
         value = "ACA"
       }
       env {
-        name = "REDIS_PORT"
+        name  = "REDIS_PORT"
         value = "6379"
       }
       env {
-        name = "REDIS_URL"
+        name        = "REDIS_URL"
         secret_name = "redis-url"
       }
       env {
-        name = "REDIS_PWD"
+        name        = "REDIS_PWD"
         secret_name = "redis-key"
       }
     }
-  } 
+  }
 }

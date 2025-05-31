@@ -80,54 +80,33 @@ module "aci-redis" {
 
   container_name   = var.aci_container_name
   container_cpu    = var.aci_container_cpu
+  container_image  = var.aci_container_image
   container_memory = var.aci_container_memory
 
-  container_image                 = "${module.acr.login_server}/${var.docker_image_name}:latest"
-  container_environment_variables = var.aci_container_environment_variables
-  container_secure_environment_variables = {
-    "REDIS_URL" = data.azurerm_key_vault_secret.redis_url.value,
-    "REDIS_PWD" = data.azurerm_key_vault_secret.redis_pwd.value,
-  }
   tags = local.tags
-
-  depends_on = [module.acr, module.kv, module.redis]
-}
-
-data "azurerm_key_vault_secret" "redis_url" {
-  name         = local.redis_hostname_secret_name
-  key_vault_id = module.kv.kv_id
-
-  depends_on = [module.redis]
-}
-
-data "azurerm_key_vault_secret" "redis_pwd" {
-  name         = local.redis_primary_key_secret_name
-  key_vault_id = module.kv.kv_id
-
-  depends_on = [module.redis]
 }
 
 module "aca" {
   source = "./modules/aca"
 
-  ua_name = var.aca_ua_name
-  rg_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
+  ua_name   = var.aca_ua_name
+  rg_name   = azurerm_resource_group.rg.name
+  location  = azurerm_resource_group.rg.location
   tenant_id = data.azurerm_client_config.client_config.tenant_id
 
-  acr_id = module.acr.acr_id
+  acr_id     = module.acr.acr_id
   acr_server = module.acr.login_server
 
-  container_app_env_name = var.container_app_env_name
-  container_app_name = var.container_app_name
+  container_app_env_name      = var.container_app_env_name
+  container_app_name          = var.container_app_name
   container_app_revision_mode = var.container_app_revision_mode
-  
-  container_name = var.container_name
-  container_image = var.container_image
-  container_cpu = var.container_cpu
+
+  container_name   = var.container_name
+  container_image  = var.container_image
+  container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
-  kv_id = module.kv.kv_id
+  kv_id                       = module.kv.kv_id
   kv_secret_redis_hostname_id = module.aci-redis.kv_secret_redis_hostname_id
   kv_secret_redis_password_id = module.aci-redis.kv_secret_redis_password_id
 
@@ -149,7 +128,7 @@ module "aks" {
   key_vault_id = module.kv.kv_id
 
   tags       = local.tags
-  depends_on = [module.acr, module.kv, module.aci-redis]
+  depends_on = [module.aci-redis]
 }
 
 provider "kubectl" {
