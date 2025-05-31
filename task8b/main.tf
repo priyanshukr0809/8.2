@@ -14,23 +14,23 @@ resource "azurerm_resource_group" "rg" {
 module "storage" {
   source = "./modules/storage"
 
-  rg_name = azurerm_resource_group.rg.name
+  rg_name  = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 
-  account_name = var.storage_account_name
-  account_tier = var.storage_account_tier
+  account_name             = var.storage_account_name
+  account_tier             = var.storage_account_tier
   account_replication_type = var.storage_account_replication_type
 
-  container_name = var.storage_container_name
+  container_name        = var.storage_container_name
   container_access_type = var.storage_container_access_type
 
-  blob_name = var.storage_blob_name
+  blob_name         = var.storage_blob_name
   blob_content_type = var.blob_content_type
-  blob_type = var.blob_type
+  blob_type         = var.blob_type
 
-  archive_type = var.archive_type
-  archive_source_dir = var.archive_source_dir
-  archive_output_path  = var.archive_output_path 
+  archive_type        = var.archive_type
+  archive_source_dir  = var.archive_source_dir
+  archive_output_path = var.archive_output_path
 }
 
 module "acr" {
@@ -44,8 +44,8 @@ module "acr" {
   platform_os   = var.platform_os
 
   dockerfile_path           = var.dockerfile_path
-  docker_build_context_path = var.docker_build_context_path
-  context_access_token      = var.context_access_token
+  docker_build_context_path = module.storage.blob_url
+  context_access_token      = module.storage.sas
   docker_image_name         = local.app_image_name
 
   tags = local.tags
@@ -66,25 +66,6 @@ module "kv" {
   depends_on = [module.acr]
 }
 
-module "redis" {
-  source = "./modules/redis"
-
-  rg_name          = azurerm_resource_group.rg.name
-  redis_cache_name = local.redis_name
-  location         = azurerm_resource_group.rg.location
-  family           = var.redis_family
-  sku_name         = var.redis_sku_name
-  capacity         = var.redis_capacity
-
-  key_vault_id                            = module.kv.kv_id
-  key_vault_secret_redis_hostname_name    = local.redis_hostname_secret_name
-  key_vault_secret_redis_primary_key_name = local.redis_primary_key_secret_name
-
-  tags = local.tags
-
-  depends_on = [module.kv]
-}
-
 data "azurerm_key_vault_secret" "redis_url" {
   name         = local.redis_hostname_secret_name
   key_vault_id = module.kv.kv_id
@@ -100,20 +81,20 @@ data "azurerm_key_vault_secret" "redis_pwd" {
 }
 
 module "aci" {
-  source = "./modules/aci"
+  source = "./modules/aci_redis"
 
   container_group_name = local.aci_name
   rg_name              = azurerm_resource_group.rg.name
   location             = azurerm_resource_group.rg.location
   os_type              = var.aci_os_type
 
+  key_vault_id               = module.kv.kv_id
+  redis_hostname_secret_name = var.redis_hostname_secret_name
+  redis_password_secret_name = var.redis_password_secret_name
+
   container_name   = var.aci_container_name
   container_cpu    = var.aci_container_cpu
   container_memory = var.aci_container_memory
-
-  acr_login_server   = module.acr.login_server
-  acr_admin_username = module.acr.admin_username
-  acr_admin_password = module.acr.admin_password
 
   container_image                 = "${module.acr.login_server}/${var.docker_image_name}:latest"
   container_environment_variables = var.aci_container_environment_variables

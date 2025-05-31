@@ -57,36 +57,20 @@ variable "aci_os_type" {
   description = "sku"
   type        = string
 }
+variable "redis_hostname_secret_name" {
+  type = string
+}
 
+variable "redis_password_secret_name" {
+  type = string
+}
 
 #kv
 variable "kv_sku_name" {
   description = "sku"
   type        = string
 }
-#redis
-variable "redis_primary_key_secret_name" {
-  description = "sku"
-  type        = string
-}
 
-variable "redis_hostname_secret_name" {
-  type        = string
-  description = "sku"
-}
-
-variable "redis_sku_name" {
-  type        = string
-  description = "sku"
-}
-variable "redis_family" {
-  type        = string
-  description = "sku"
-}
-variable "redis_capacity" {
-  type        = number
-  description = "sku"
-}
 
 #aks
 variable "system_node_pool_name" {
@@ -109,38 +93,38 @@ variable "name_prefix" {
 
 #storage
 variable "storage_account_name" {
-    type = string
+  type = string
 }
 variable "storage_account_tier" {
-    type = string
+  type = string
 }
 variable "storage_account_replication_type" {
-    type = string
+  type = string
 }
 
 variable "storage_container_name" {
-    type = string
+  type = string
 }
 variable "storage_container_access_type" {
-    type = string
+  type = string
 }
 
 variable "storage_blob_name" {
-    type = string
+  type = string
 }
 variable "blob_content_type" {
-    type = string
+  type = string
 }
 variable "blob_type" {
-    type = string
+  type = string
 }
 
 variable "archive_type" {
-    type = string
+  type = string
 }
 variable "archive_source_dir" {
-    type = string
+  type = string
 }
 variable "archive_output_path" {
-    type = string
+  type = string
 }

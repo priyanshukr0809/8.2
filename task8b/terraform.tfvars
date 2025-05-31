@@ -22,20 +22,16 @@ aci_container_environment_variables = {
 
 kv_sku_name = "standard"
 
-redis_hostname_secret_name    = "redis-hostname"
-redis_primary_key_secret_name = "redis-primary-key"
-
-redis_family   = "C"
-redis_capacity = 2
-redis_sku_name = "Basic"
+redis_hostname_secret_name = "value"
+redis_password_secret_name = "value"
 
 system_node_pool_name       = "system"
 system_node_pool_node_count = 1
 system_node_pool_vm_size    = "Standard_D2ads_v5"
 
 #storage
-archive_type = "zip"
-archive_source_dir = "application"
+archive_type        = "zip"
+archive_source_dir  = "application"
 archive_output_path = "new.zip"
-blob_content_type = "application/zip"
-blob_type = "Block"
+blob_content_type   = "application/zip"
+blob_type           = "Block"
