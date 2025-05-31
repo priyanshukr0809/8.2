@@ -66,21 +66,7 @@ module "kv" {
   depends_on = [module.acr]
 }
 
-data "azurerm_key_vault_secret" "redis_url" {
-  name         = local.redis_hostname_secret_name
-  key_vault_id = module.kv.kv_id
-
-  depends_on = [module.redis]
-}
-
-data "azurerm_key_vault_secret" "redis_pwd" {
-  name         = local.redis_primary_key_secret_name
-  key_vault_id = module.kv.kv_id
-
-  depends_on = [module.redis]
-}
-
-module "aci" {
+module "aci-redis" {
   source = "./modules/aci_redis"
 
   container_group_name = local.aci_name
@@ -107,6 +93,45 @@ module "aci" {
   depends_on = [module.acr, module.kv, module.redis]
 }
 
+data "azurerm_key_vault_secret" "redis_url" {
+  name         = local.redis_hostname_secret_name
+  key_vault_id = module.kv.kv_id
+
+  depends_on = [module.redis]
+}
+
+data "azurerm_key_vault_secret" "redis_pwd" {
+  name         = local.redis_primary_key_secret_name
+  key_vault_id = module.kv.kv_id
+
+  depends_on = [module.redis]
+}
+
+module "aca" {
+  source = "./modules/aca"
+
+  ua_name = var.aca_ua_name
+  rg_name = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+  tenant_id = data.azurerm_client_config.client_config.tenant_id
+
+  acr_id = module.acr.acr_id
+  acr_server = module.acr.login_server
+
+  container_app_env_name = var.container_app_env_name
+  container_app_name = var.container_app_name
+  container_app_revision_mode = var.container_app_revision_mode
+  
+  container_name = var.container_name
+  container_image = var.container_image
+  container_cpu = var.container_cpu
+  container_memory = var.container_memory
+
+  kv_id = module.kv.kv_id
+  kv_secret_redis_hostname_id = module.aci-redis.kv_secret_redis_hostname_id
+  kv_secret_redis_password_id = module.aci-redis.kv_secret_redis_password_id
+
+}
 module "aks" {
   source = "./modules/aks"
 
@@ -124,7 +149,7 @@ module "aks" {
   key_vault_id = module.kv.kv_id
 
   tags       = local.tags
-  depends_on = [module.acr, module.kv, module.redis, module.aci]
+  depends_on = [module.acr, module.kv, module.aci-redis]
 }
 
 provider "kubectl" {
@@ -150,7 +175,7 @@ resource "kubectl_manifest" "secret_provider" {
     tenant_id                  = data.azurerm_client_config.client_config.tenant_id
   })
 
-  depends_on = [module.aks, module.redis, module.kv]
+  depends_on = [module.aks, module.aci-redis, module.kv]
 }
 
 resource "kubectl_manifest" "deployment" {
