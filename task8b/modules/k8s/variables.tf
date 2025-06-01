@@ -17,3 +17,7 @@ variable "redis_hostname_secret_name" {
 variable "redis_password_secret_name" {
   type = string
 }
+
+variable "aks_kv_access_identity_id" {
+  type = string
+}

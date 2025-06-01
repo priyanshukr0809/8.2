@@ -140,6 +140,21 @@ module "aks" {
   depends_on = [module.aci-redis, module.acr, module.kv, module.aca]
 }
 
+provider "kubectl" {
+  host                   = yamldecode(module.aks.aks_kube_config).clusters[0].cluster.server
+  client_certificate     = base64decode(yamldecode(module.aks.aks_kube_config).users[0].user.client-certificate-data)
+  client_key             = base64decode(yamldecode(module.aks.aks_kube_config).users[0].user.client-key-data)
+  cluster_ca_certificate = base64decode(yamldecode(module.aks.aks_kube_config).clusters[0].cluster.certificate-authority-data)
+  load_config_file       = false
+}
+
+provider "kubernetes" {
+  host                   = yamldecode(module.aks.aks_kube_config).clusters[0].cluster.server
+  client_certificate     = base64decode(yamldecode(module.aks.aks_kube_config).users[0].user.client-certificate-data)
+  client_key             = base64decode(yamldecode(module.aks.aks_kube_config).users[0].user.client-key-data)
+  cluster_ca_certificate = base64decode(yamldecode(module.aks.aks_kube_config).clusters[0].cluster.certificate-authority-data)
+}
+
 module "k8s" {
   source = "./modules/k8s"
 
@@ -148,6 +163,8 @@ module "k8s" {
   kv_name                    = local.keyvault_name
   redis_hostname_secret_name = var.redis_hostname_secret_name
   redis_password_secret_name = var.redis_password_secret_name
+  aks_kv_access_identity_id  = module.aks.aks_kv_access_identity_id
 
   depends_on = [module.aks]
 }
+
