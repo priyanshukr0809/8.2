@@ -29,6 +29,7 @@ aci_container_name         = "suvham-aci-container1"
 aci_container_image        = "mcr.microsoft.com/cbl-mariner/base/redis:6"
 aci_container_cpu          = "1"
 aci_container_memory       = "1"
+aci_redis_sku              = "Standard"
 redis_hostname_secret_name = "redis-hostname"
 redis_password_secret_name = "redis-password"
 
@@ -42,6 +43,8 @@ container_app_revision_mode = "Single"
 container_cpu               = "0.25"
 container_memory            = "0.5Gi"
 container_name              = "suvham-appcontainer1"
+acae_workload_profile_name  = "suvham-acae-workload1"
+acae_workload_profile_type  = "Consumption"
 
 #aks
 system_node_pool_name       = "system"

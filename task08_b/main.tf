@@ -1,9 +1,5 @@
 provider "azurerm" {
   features {}
-  subscription_id         = "a53670da-bf9b-4c7d-825a-7544c720e890"
-  client_id               = "23a31c03-6ef6-4e82-b017-d4d250ad7d32"
-  client_secret_file_path = "C:\\Users\\suvham_paul\\Desktop\\learn-terraform\\tasks\\task8b_off\\task8b\\.client_secret"
-  tenant_id               = "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
 }
 
 data "azurerm_client_config" "client_config" {}
