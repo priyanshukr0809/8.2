@@ -139,3 +139,15 @@ module "aks" {
   tags       = local.tags
   depends_on = [module.aci-redis, module.acr, module.kv, module.aca]
 }
+
+module "k8s" {
+  source = "./modules/k8s"
+
+  acr_login_server           = module.acr.login_server
+  docker_image_name          = var.docker_image_name
+  kv_name                    = local.keyvault_name
+  redis_hostname_secret_name = var.redis_hostname_secret_name
+  redis_password_secret_name = var.redis_password_secret_name
+
+  depends_on = [module.aks]
+}
