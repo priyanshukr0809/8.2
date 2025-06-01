@@ -1,55 +1,55 @@
 variable "container_group_name" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "rg_name" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "location" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "os_type" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "container_name" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "container_image" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "container_cpu" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "container_memory" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "key_vault_id" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "redis_hostname_secret_name" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "redis_password_secret_name" {
-  type = string
+  type        = string
   description = "value"
 }
 variable "tags" {
