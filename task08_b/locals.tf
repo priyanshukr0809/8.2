@@ -4,11 +4,11 @@ locals {
   docker_image_name = format("%s-app", var.name_prefix)
 
   aks_name = format("%s-aks", var.name_prefix)
-  
+
   acr_name = lower(replace(format("%scr", var.name_prefix), "-", ""))
-  
+
   sa_name = lower(replace(format("%ssa", var.name_prefix), "-", ""))
-  
+
   aca_name = format("%s-ca", var.name_prefix)
 
   acae_name = format("%s-cae", var.name_prefix)
