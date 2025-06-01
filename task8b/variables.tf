@@ -9,40 +9,51 @@ variable "name_prefix" {
 
 variable "archive_type" {
   type = string
+  description = "value"
 }
 variable "archive_source_dir" {
   type = string
+  description = "value"
 }
 variable "archive_output_path" {
   type = string
+  description = "value"
 }
 
 #storage
 variable "storage_account_name" {
   type = string
+  description = "value"
 }
 variable "storage_account_tier" {
   type = string
+  description = "value"
 }
 variable "storage_account_replication_type" {
   type = string
+  description = "value"
 }
 
 variable "storage_container_name" {
   type = string
+  description = "value"
 }
 variable "storage_container_access_type" {
   type = string
+  description = "value"
 }
 
 variable "storage_blob_name" {
   type = string
+  description = "value"
 }
 variable "blob_content_type" {
   type = string
+  description = "value"
 }
 variable "blob_type" {
   type = string
+  description = "value"
 }
 #acr
 variable "acr_sku" {
@@ -89,9 +100,11 @@ variable "aci_os_type" {
 }
 variable "redis_hostname_secret_name" {
   type = string
+  description = "value"
 }
 variable "redis_password_secret_name" {
   type = string
+  description = "value"
 }
 
 #kv
@@ -117,26 +130,33 @@ variable "system_node_pool_vm_size" {
 #aca
 variable "container_app_env_name" {
   type = string
+  description = "value"
 }
 
 variable "container_app_name" {
   type = string
+  description = "value"
 }
 variable "container_cpu" {
   type = string
+  description = "value"
 }
 variable "container_memory" {
   type = string
+  description = "value"
 }
 
 variable "container_name" {
   type = string
+  description = "value"
 }
 
 variable "container_app_revision_mode" {
   type = string
+  description = "value"
 }
 
 variable "aca_ua_name" {
   type = string
+  description = "value"
 }
