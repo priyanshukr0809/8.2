@@ -52,3 +52,7 @@ variable "blob_type" {
   type        = string
   description = "value"
 }
+variable "tags" {
+  type        = map(string)
+  description = "sku"
+}

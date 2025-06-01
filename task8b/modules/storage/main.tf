@@ -13,6 +13,8 @@ resource "azurerm_storage_account" "storage_account" {
 
   #not required
   depends_on = [data.archive_file.archive_context]
+
+  tags = var.tags
 }
 
 resource "azurerm_storage_container" "storage_container" {

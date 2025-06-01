@@ -1,24 +1,31 @@
 locals {
   rg_name = format("%s-rg", var.name_prefix)
 
-  acr_name = lower(replace(format("%scr", var.name_prefix), "-", ""))
-
-  app_image_name = format("%s-app", var.name_prefix)
-
-  aci_name = format("%s-ci", var.name_prefix)
+  docker_image_name = format("%s-app", var.name_prefix)
 
   aks_name = format("%s-aks", var.name_prefix)
 
-  redis_name = format("%s-redis", var.name_prefix)
+  aca_name = format("%s-ca", var.name_prefix)
+
+  acae_name = format("%s-cae", var.name_prefix)
+
+  redis_aci_name = format("%s-redis-aci", var.name_prefix)
+
+  sa_name = format("%ssa", var.name_prefix)
+
+  acr_name = format("%scr", var.name_prefix)
+
+  aca_env_name = format("%s-aca_env", var.name_prefix)
 
   keyvault_name = format("%s-kv", var.name_prefix)
 
-  redis_hostname_secret_name    = "redis-hostname"
-  redis_primary_key_secret_name = "redis-primary-key"
+  redis_hostname_secret_name = "redis-hostname"
+  redis_password_secret_name = "redis-password"
 
   tags = {
     Creator = "suvham_paul@epam.com"
   }
-  dns_name_label = "mydnslabel"
+
+  dns_name_label = "suvhamdnslabel"
   dns_prefix     = "${var.name_prefix}-k8s"
 }

@@ -7,6 +7,7 @@ resource "azurerm_container_group" "cg" {
   resource_group_name = var.rg_name
   location            = var.location
   os_type             = var.os_type
+  sku                 = var.sku
   ip_address_type     = "Public"
   dns_name_label      = var.container_group_name
   exposed_port = [{
@@ -33,6 +34,8 @@ resource "azurerm_container_group" "cg" {
       "--requirepass", random_password.redis_password.result
     ]
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_key_vault_secret" "redis_hostname" {

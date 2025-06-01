@@ -1,6 +1,6 @@
 location = "southindia"
 
-name_prefix = "suvham2"
+name_prefix = "cmtr-jq46olgq-mod8b"
 
 archive_type        = "tar.gz"
 archive_source_dir  = "application"
@@ -12,7 +12,7 @@ storage_account_replication_type = "LRS"
 storage_account_tier             = "Standard"
 storage_blob_name                = "suvham-blob1"
 storage_container_access_type    = "private"
-storage_container_name           = "suvham-container1"
+storage_container_name           = "app-content"
 blob_content_type                = "application/zip"
 blob_type                        = "Block"
 
@@ -33,7 +33,7 @@ redis_hostname_secret_name = "redis-hostname"
 redis_password_secret_name = "redis-password"
 
 #kv
-kv_sku_name = "standard"
+kv_sku = "standard"
 
 #aca
 container_app_env_name      = "suvham-appenv1"

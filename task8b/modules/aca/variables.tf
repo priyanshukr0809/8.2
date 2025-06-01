@@ -72,3 +72,14 @@ variable "acr_server" {
   type        = string
   description = "value"
 }
+variable "tags" {
+  type        = map(string)
+  description = "sku"
+}
+
+variable "acae_workload_profile_name" {
+  type = string
+}
+variable "acae_workload_profile_type" {
+  type = string
+}

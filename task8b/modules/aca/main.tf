@@ -25,7 +25,13 @@ resource "azurerm_container_app_environment" "app_env" {
   resource_group_name = var.rg_name
   location            = var.location
 
+  workload_profile {
+    name                  = var.acae_workload_profile_name
+    workload_profile_type = var.acae_workload_profile_type
+  }
+
   depends_on = [azurerm_key_vault_access_policy.kvap]
+  tags       = var.tags
 }
 
 resource "azurerm_container_app" "app" {
@@ -33,6 +39,8 @@ resource "azurerm_container_app" "app" {
   resource_group_name          = var.rg_name
   revision_mode                = var.container_app_revision_mode
   container_app_environment_id = azurerm_container_app_environment.app_env.id
+
+  workload_profile_name = var.acae_workload_profile_name
 
   registry {
     server   = var.acr_server
@@ -90,4 +98,6 @@ resource "azurerm_container_app" "app" {
       latest_revision = true
     }
   }
+
+  tags = var.tags
 }

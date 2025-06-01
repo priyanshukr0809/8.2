@@ -90,6 +90,10 @@ variable "aci_container_cpu" {
   description = "sku"
   type        = string
 }
+variable "aci_redis_sku" {
+  description = "sku"
+  type        = string
+}
 variable "aci_container_memory" {
   description = "sku"
   type        = string
@@ -108,7 +112,7 @@ variable "redis_password_secret_name" {
 }
 
 #kv
-variable "kv_sku_name" {
+variable "kv_sku" {
   description = "sku"
   type        = string
 }
@@ -159,4 +163,10 @@ variable "container_app_revision_mode" {
 variable "aca_ua_name" {
   type        = string
   description = "value"
+}
+variable "acae_workload_profile_name" {
+  type = string
+}
+variable "acae_workload_profile_type" {
+  type = string
 }

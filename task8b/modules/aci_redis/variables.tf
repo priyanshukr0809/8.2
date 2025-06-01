@@ -8,6 +8,11 @@ variable "rg_name" {
   description = "value"
 }
 
+variable "sku" {
+  type        = string
+  description = "value"
+}
+
 variable "location" {
   type        = string
   description = "value"

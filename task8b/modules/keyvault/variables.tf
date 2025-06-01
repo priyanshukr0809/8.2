@@ -10,7 +10,7 @@ variable "location" {
   type        = string
   description = "sku"
 }
-variable "sku_name" {
+variable "sku" {
   type        = string
   description = "sku"
 }
