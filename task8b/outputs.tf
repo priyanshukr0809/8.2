@@ -10,8 +10,3 @@ output "aks_lb_ip" {
   value       = module.k8s.aks_lb_ip
   description = "value"
 }
-
-output "aci_ip_address" {
-  value       = module.aci-redis.aci_ip_address
-  description = "value"
-}
