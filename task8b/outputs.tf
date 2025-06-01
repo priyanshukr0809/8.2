@@ -5,7 +5,7 @@ output "redis_fqdn" {
   value = module.aci-redis.redis_fqdn
 }
 output "aks_lb_ip" {
-  value = module.k8s
+  value = module.k8s.aks_lb_ip
 }
 
 output "aci_ip_address" {
