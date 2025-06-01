@@ -165,8 +165,10 @@ variable "aca_ua_name" {
   description = "value"
 }
 variable "acae_workload_profile_name" {
-  type = string
+  type        = string
+  description = "value"
 }
 variable "acae_workload_profile_type" {
-  type = string
+  type        = string
+  description = "value"
 }

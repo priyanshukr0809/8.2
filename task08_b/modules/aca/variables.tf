@@ -78,8 +78,10 @@ variable "tags" {
 }
 
 variable "acae_workload_profile_name" {
-  type = string
+  type        = string
+  description = "sku"
 }
 variable "acae_workload_profile_type" {
-  type = string
+  type        = string
+  description = "sku"
 }
