@@ -32,9 +32,7 @@ resource "azurerm_container_group" "cg" {
       "--protected-mode", "no",
       "--requirepass", random_password.redis_password.result
     ]
-
   }
-
 }
 
 resource "azurerm_key_vault_secret" "redis_hostname" {
@@ -48,6 +46,6 @@ resource "azurerm_key_vault_secret" "redis_password" {
   value        = random_password.redis_password.result
   key_vault_id = var.key_vault_id
 
-  depends_on = [ azurerm_key_vault_secret.redis_hostname ]
+  depends_on = [azurerm_key_vault_secret.redis_hostname]
 }
 
