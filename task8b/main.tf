@@ -1,5 +1,9 @@
 provider "azurerm" {
   features {}
+  subscription_id         = "a53670da-bf9b-4c7d-825a-7544c720e890"
+  client_id               = "23a31c03-6ef6-4e82-b017-d4d250ad7d32"
+  client_secret_file_path = "C:\\Users\\suvham_paul\\Desktop\\learn-terraform\\tasks\\task8b_off\\task8b\\.client_secret"
+  tenant_id               = "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
 }
 
 data "azurerm_client_config" "client_config" {}
@@ -46,9 +50,11 @@ module "acr" {
   dockerfile_path           = var.dockerfile_path
   docker_build_context_path = module.storage.blob_url
   context_access_token      = module.storage.sas
-  docker_image_name         = local.app_image_name
+  docker_image_name         = var.docker_image_name
 
   tags = local.tags
+
+  depends_on = [module.storage]
 }
 
 
@@ -83,7 +89,8 @@ module "aci-redis" {
   container_image  = var.aci_container_image
   container_memory = var.aci_container_memory
 
-  tags = local.tags
+  depends_on = [module.acr, module.kv]
+  tags       = local.tags
 }
 
 module "aca" {
@@ -102,7 +109,7 @@ module "aca" {
   container_app_revision_mode = var.container_app_revision_mode
 
   container_name   = var.container_name
-  container_image  = var.container_image
+  container_image  = "${module.acr.login_server}/${var.docker_image_name}:latest"
   container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
@@ -110,6 +117,7 @@ module "aca" {
   kv_secret_redis_hostname_id = module.aci-redis.kv_secret_redis_hostname_id
   kv_secret_redis_password_id = module.aci-redis.kv_secret_redis_password_id
 
+  depends_on = [module.aci-redis, module.acr, module.kv]
 }
 module "aks" {
   source = "./modules/aks"
@@ -128,7 +136,7 @@ module "aks" {
   key_vault_id = module.kv.kv_id
 
   tags       = local.tags
-  depends_on = [module.aci-redis]
+  depends_on = [module.aci-redis, module.acr, module.kv, module.aca]
 }
 
 provider "kubectl" {
@@ -150,7 +158,7 @@ resource "kubectl_manifest" "secret_provider" {
     aks_kv_access_identity_id  = module.aks.aks_kv_access_identity_id
     kv_name                    = local.keyvault_name
     redis_url_secret_name      = var.redis_hostname_secret_name
-    redis_password_secret_name = var.redis_primary_key_secret_name
+    redis_password_secret_name = var.redis_password_secret_name
     tenant_id                  = data.azurerm_client_config.client_config.tenant_id
   })
 

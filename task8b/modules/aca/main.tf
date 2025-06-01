@@ -4,7 +4,7 @@ resource "azurerm_user_assigned_identity" "ua1" {
   location            = var.location
 }
 
-resource "azurerm_role_assignemnt" "ra" {
+resource "azurerm_role_assignment" "ra" {
   role_definition_name = "AcrPull"
   scope                = var.acr_id
   principal_id         = azurerm_user_assigned_identity.ua1.principal_id
@@ -17,7 +17,7 @@ resource "azurerm_key_vault_access_policy" "kvap" {
 
   secret_permissions = ["Get", "List"]
 
-  depends_on = [azurerm_role_assignemnt.ra]
+  depends_on = [azurerm_role_assignment.ra]
 }
 
 resource "azurerm_container_app_environment" "app_env" {

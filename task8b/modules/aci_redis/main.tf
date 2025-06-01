@@ -47,5 +47,7 @@ resource "azurerm_key_vault_secret" "redis_password" {
   name         = var.redis_password_secret_name
   value        = random_password.redis_password.result
   key_vault_id = var.key_vault_id
+
+  depends_on = [ azurerm_key_vault_secret.redis_hostname ]
 }
 
