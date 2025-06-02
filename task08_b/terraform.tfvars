@@ -7,7 +7,7 @@ archive_source_dir  = "application"
 archive_output_path = "new.tar.gz"
 
 #storage
-storage_account_name             = "cmtrw6544eusmod8bsa"
+storage_account_name             = "priyanshusa1"
 storage_account_replication_type = "LRS"
 storage_account_tier             = "Standard"
 storage_blob_name                = "priyanshu-blob1"
@@ -17,14 +17,14 @@ blob_content_type                = "application/zip"
 blob_type                        = "Block"
 
 #acr
-acr_task_name   = "cmtrw6544eusmod8bcr"
+acr_task_name   = "priyanshu-acr1-task1"
 acr_sku         = "Basic"
 platform_os     = "Linux"
 dockerfile_path = "Dockerfile"
 
 #aci-redis
 aci_os_type                = "Linux"
-aci_container_name         = "suvham-aci-container1"
+aci_container_name         = "priyanshu-aci-container1"
 aci_container_image        = "mcr.microsoft.com/cbl-mariner/base/redis:6"
 aci_container_cpu          = "1"
 aci_container_memory       = "1"
@@ -39,7 +39,7 @@ kv_sku = "standard"
 container_app_revision_mode = "Single"
 container_cpu               = "0.25"
 container_memory            = "0.5Gi"
-container_name              = "suvham-appcontainer1"
+container_name              = "priyanshu-appcontainer1"
 acae_workload_profile_name  = "Consumption"
 acae_workload_profile_type  = "Consumption"
 
@@ -48,4 +48,4 @@ system_node_pool_name       = "system"
 system_node_pool_node_count = 1
 system_node_pool_vm_size    = "Standard_D2ads_v5"
 
-aca_ua_name = "suvham-aca-ua1"
+aca_ua_name = "priyanshu-aca-ua1"
