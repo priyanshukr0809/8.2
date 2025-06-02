@@ -106,12 +106,12 @@ module "aca" {
   acae_workload_profile_name = var.acae_workload_profile_name
   acae_workload_profile_type = var.acae_workload_profile_type
 
-  container_app_env_name      = var.container_app_env_name
-  container_app_name          = var.container_app_name
+  container_app_env_name      = local.acae_name
+  container_app_name          = local.aca_name
   container_app_revision_mode = var.container_app_revision_mode
 
   container_name   = var.container_name
-  container_image  = "${module.acr.login_server}/${var.docker_image_name}:latest"
+  container_image  = "${module.acr.login_server}/${local.docker_image_name}:latest"
   container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
@@ -162,7 +162,7 @@ module "k8s" {
   source = "./modules/k8s"
 
   acr_login_server           = module.acr.login_server
-  docker_image_name          = var.docker_image_name
+  docker_image_name          = local.docker_image_name
   kv_name                    = local.keyvault_name
   redis_hostname_secret_name = var.redis_hostname_secret_name
   redis_password_secret_name = var.redis_password_secret_name

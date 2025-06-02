@@ -15,8 +15,6 @@ locals {
 
   redis_aci_name = format("%s-redis-aci", var.name_prefix)
 
-  aca_env_name = format("%s-aca_env", var.name_prefix)
-
   keyvault_name = format("%s-kv", var.name_prefix)
 
   redis_hostname_secret_name = "redis-hostname"
