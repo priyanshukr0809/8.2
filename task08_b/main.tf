@@ -106,7 +106,7 @@ module "aca" {
   acae_workload_profile_name = var.acae_workload_profile_name
   acae_workload_profile_type = var.acae_workload_profile_type
 
-  container_app_env_name      = local.acae_name
+  container_app_env_name      = local.aca_env_name
   container_app_name          = local.aca_name
   container_app_revision_mode = var.container_app_revision_mode
 

@@ -11,7 +11,7 @@ locals {
 
   aca_name = format("%s-ca", var.name_prefix)
 
-  acae_name = format("%s-cae", var.name_prefix)
+  aca_env_name = format("%s-cae", var.name_prefix)
 
   redis_aci_name = format("%s-redis-aci", var.name_prefix)
 
