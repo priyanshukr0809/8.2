@@ -64,10 +64,6 @@ variable "dockerfile_path" {
   type        = string
   description = "sku"
 }
-variable "docker_image_name" {
-  type        = string
-  description = "sku"
-}
 variable "platform_os" {
   type        = string
   description = "sku"
@@ -132,15 +128,6 @@ variable "system_node_pool_vm_size" {
 }
 
 #aca
-variable "container_app_env_name" {
-  type        = string
-  description = "value"
-}
-
-variable "container_app_name" {
-  type        = string
-  description = "value"
-}
 variable "container_cpu" {
   type        = string
   description = "value"
