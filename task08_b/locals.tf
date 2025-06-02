@@ -13,7 +13,7 @@ locals {
 
   aca_env_name = format("%s-cae", var.name_prefix)
 
-  redis_aci_name = format("%s-redis-aci", var.name_prefix)
+  redis_aci_name = format("%s-redis-ci", var.name_prefix)
 
   keyvault_name = format("%s-kv", var.name_prefix)
 
