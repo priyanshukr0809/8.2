@@ -21,7 +21,7 @@ locals {
   redis_password_secret_name = "redis-password"
 
   tags = {
-    Creator = "suvham_paul@epam.com"
+    Creator = "priyanshu_kumar@epam.com"
   }
 
   dns_name_label = "suvhamdnslabel"
