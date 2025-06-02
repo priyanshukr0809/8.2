@@ -24,6 +24,6 @@ locals {
     Creator = "priyanshu_kumar@epam.com"
   }
 
-  dns_name_label = "suvhamdnslabel"
+  dns_name_label = "priyanshudnslabel"
   dns_prefix     = "${var.name_prefix}-k8s"
 }
