@@ -17,10 +17,10 @@ blob_content_type                = "application/zip"
 blob_type                        = "Block"
 
 #acr
-acr_task_name     = "suvham-acr1-task1"
-acr_sku           = "Basic"
-platform_os       = "Linux"
-dockerfile_path   = "Dockerfile"
+acr_task_name   = "suvham-acr1-task1"
+acr_sku         = "Basic"
+platform_os     = "Linux"
+dockerfile_path = "Dockerfile"
 
 #aci-redis
 aci_os_type                = "Linux"
