@@ -21,7 +21,6 @@ acr_task_name     = "suvham-acr1-task1"
 acr_sku           = "Basic"
 platform_os       = "Linux"
 dockerfile_path   = "Dockerfile"
-docker_image_name = "suvham-dockerimage1"
 
 #aci-redis
 aci_os_type                = "Linux"
@@ -37,13 +36,11 @@ redis_password_secret_name = "redis-password"
 kv_sku = "standard"
 
 #aca
-container_app_env_name      = "suvham-appenv1"
-container_app_name          = "suvham-app1"
 container_app_revision_mode = "Single"
 container_cpu               = "0.25"
 container_memory            = "0.5Gi"
 container_name              = "suvham-appcontainer1"
-acae_workload_profile_name  = "suvham-acae-workload1"
+acae_workload_profile_name  = "Consumption"
 acae_workload_profile_type  = "Consumption"
 
 #aks
